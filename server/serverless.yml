@@ -1,0 +1,12 @@
+service: server
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, "test"}
+  region: ${opt:region, "eu-west-1"}
+  environment: ${file(./sls-env.yml):${self:provider.stage}}
+
+functions:
+  hello:
+    handler: handler.hello
