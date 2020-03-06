@@ -2,11 +2,48 @@ service: server
 
 provider:
   name: aws
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "*"
   runtime: nodejs12.x
-  stage: ${opt:stage, "test"}
-  region: ${opt:region, "eu-west-1"}
+  stage: ${opt:stage, "dev"}
+  region: ${opt:region, "eu-central-1"}
   environment: ${file(./sls-env.yml):${self:provider.stage}}
 
+plugins:
+  - serverless-offline
+  - serverless-dynamodb-local
+
+custom:
+  serverless-offline:
+    port: 4000
+  dynamodb:
+    stages:
+      - dev
+
 functions:
-  hello:
-    handler: handler.hello
+  createProduct:
+    handler: src/handler/ProductHandler.createProduct
+    events:
+      - http:
+          path: products
+          method: post
+          cors: true
+  getProducts:
+    handler: src/handler/ProductHandler.getProducts
+    events:
+      - http:
+          path: products
+          method: get
+          cors: true
+
+resources:
+  - ${file(./resources/dynamoDB.yml)}

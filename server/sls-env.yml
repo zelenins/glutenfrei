@@ -1,0 +1,11 @@
+default: &default
+  DYNAMO_DB_REGION: eu-central-1
+  DYNAMO_DB_ENDPOINT: dynamodb.eu-central-1.amazonaws.com
+  PRODUCT_TABLE: Product-${self:provider.stage}
+local:
+  <<: *default
+  DYNAMO_DB_ENDPOINT: http://localhost:8000
+dev:
+  <<: *default
+prod:
+  <<: *default
