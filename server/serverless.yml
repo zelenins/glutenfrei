@@ -37,6 +37,13 @@ functions:
           path: products
           method: post
           cors: true
+  deleteProduct:
+    handler: src/handler/ProductHandler.deleteProduct
+    events:
+      - http:
+          path: products/{id}
+          method: delete
+          cors: true
   getProducts:
     handler: src/handler/ProductHandler.getProducts
     events:
@@ -44,6 +51,7 @@ functions:
           path: products
           method: get
           cors: true
+  
 
 resources:
   - ${file(./resources/dynamoDB.yml)}

@@ -1,0 +1,27 @@
+type Product @model {
+	id: ID!
+	productOwnerId: String!
+	productOwnerUsername: String!
+	productTitle: String!
+	productDescription: String!
+	createdAt: String
+	comments: [Comment] @connection(name: "ProductComments") #relationship
+	likes: [Like] @connection(name: "ProductLikes")
+}
+ 
+type Comment @model {
+	id: ID!
+	commentOwnerId: String!
+	commentOwnerUsername: String!
+	post: Product @connection(name: "ProductComments")
+	content: String!
+	createdAt: String!
+}
+ 
+type Like @model {
+	id: ID!
+	numberLikes: Int!
+	likeOwnerId: String!
+	likeOwnerUsername: String!
+	post: Product @connection(name: "ProductLikes")
+}
