@@ -1,9 +1,10 @@
-import { API } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
+import { listProducts } from '../graphql/queries';
 
 const getProducts = async () => {
   try {
-    const accounts = await API.get('products', '/products');
-    return accounts.Items;
+    const products = await API.graphql(graphqlOperation(listProducts));
+    return products.data.listProducts.items;
   }catch(error) {
     console.log(error);
   }

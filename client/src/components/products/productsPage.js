@@ -7,10 +7,17 @@ import * as productActions from '../../redux/actions/productActions';
 import { bindActionCreators } from 'redux';
 
 class ProductsPage extends React.Component {
-  componentDidMount() {
-    this.props.actions.loadProducts().catch(error => {
-      alert('Loading products failed' + error)
+
+  componentDidMount = async () => {
+    this.getPosts();
+  }
+  
+  getPosts = () => {
+    this.props.actions.loadProducts()
+    .catch(error => {
+      console.log('Loading products failed' + error)
     });
+    
   }
 
   render() {

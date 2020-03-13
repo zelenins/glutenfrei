@@ -14,11 +14,8 @@ const productsList = ({ products }) => (
             className='list-group-item list-group-item-action col-6'
           >
             <div>
-              <div className='float-left'>
-                <img height='100px' width='100px' src={product.image} />
-              </div>
-              <div class-name='float-right'>
-                {product.name}
+              <div>
+                {product.productTitle}
                 {product.glutenFreeCertified && (
                   <img
                     height='30px'

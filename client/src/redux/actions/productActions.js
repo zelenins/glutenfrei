@@ -3,11 +3,7 @@ import * as productApi from '../../api/productApi';
 
 const createProduct = product => {
   return { type: types.CREATE_COURSE, product };
-}
-
-const loadProductsSuccess = products => {
-  return { type: types.LOAD_PRODUCTS_SUCCESS, products }
-}
+};
 
 const loadProducts = () => {
   return function (dispatch) {
@@ -17,6 +13,10 @@ const loadProducts = () => {
       throw error;
     })
   }
+};
+
+const loadProductsSuccess = products => {
+  return { type: types.LOAD_PRODUCTS_SUCCESS, products }
 };
 
 export {
